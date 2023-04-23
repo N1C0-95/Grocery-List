@@ -1,3 +1,38 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html, body {
+  background-color: #f8f9fa;
+}
+
+li{
+  @apply list-none
+}
+
+.page{
+  @apply max-w-screen-lg pt-20 px-3 mx-auto 
+}
+
+.page-sm{
+  @apply max-w-screen-sm pt-20 px-3 mx-auto 
+}
+
+
+/*
+  button
+*/
+.btn{
+  @apply px-5 py-2 w-28 m-1 font-bold text-center text-sm uppercase transition-all 
+  rounded-full cursor-pointer hover:scale-105 hover:shadow-sm
+}
+.btn.primary{
+  @apply text-white bg-gradient-to-tl from-purple-500 to-pink-400 
+  hover:bg-gradient-to-tl hover:from-purple-700 hover:to-pink-500
+}
+.btn.success{
+  @apply bg-green-400 hover:bg-green-600 text-white
+}
+.btn.error{
+  @apply bg-red-400 hover:bg-red-500 text-white
+}
