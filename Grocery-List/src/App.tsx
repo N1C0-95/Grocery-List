@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { Login, Home, Grocery, Pantry, NotFound } from "./pages"
 import { NavBar } from "./shared/components/NavBar"
+import { Footer } from "./shared/components/Footer"
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route index element={<Home/>}/>
       </Routes>
       </div>
+      <Footer/>
     </BrowserRouter>
     </>
   )
