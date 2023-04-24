@@ -6,12 +6,12 @@ export function NavBar() {
   
   
   function isActive(obj:{isActive:boolean}){
-    return obj.isActive ? "text-fuchsia-500 font-bold" : "text-[#67748E]";
+    return obj.isActive ? "text-fuchsia-500 font-semibold" : "text-[#67748E]";
   }
   console.log("riprocesso il componente")
   return (
     
-    <div className="w-full h-24 flex flex-wrap justify-center items-center gap-7
+    <div className="w-full h-24 mt-3 flex flex-wrap justify-center items-center gap-7
      sm:h-16 sm:justify-between sm:pr-20 sm:pl-10  ">
       {/* LOGO */}
       <div className="flex ">
