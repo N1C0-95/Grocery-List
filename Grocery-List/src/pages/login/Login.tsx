@@ -1,6 +1,6 @@
 export function Login(){
     return(
-        <div>
+        <div className="title">
             Login here
         </div>
     )
