@@ -10,8 +10,8 @@ li{
   @apply list-none
 }
 
-input{
-  @apply border border-slate-400 rounded-lg h-10 p-3
+input, select{
+  @apply border border-slate-400 rounded-lg h-10 p-2
 }
 
 .page{

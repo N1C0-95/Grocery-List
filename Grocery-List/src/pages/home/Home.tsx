@@ -8,26 +8,26 @@ import bar from "../../assets/bar-graph.png";
 import { HomeList } from "./components/HomeList";
 import { useNavigate } from "react-router-dom";
 export function Home() {
-  // const [categoryList, setCategoryList] = useState<Category[]>()
+   const [categoryList, setCategoryList] = useState<Category[]>()
   // const [products, setProducts] = useState<Product[]>()
   // const [locations, setLocations] = useState<Locations[]>();
-  // useEffect(() => {
-  //     pb.collection("products").getList<Product>().then((res) => setProducts(res.items))
-  //     pb.collection("category").getList<Category>().then((res) => setCategoryList(res.items))
-  //     pb.collection("location").getList<Locations>().then((res) => setLocations(res.items))
-  // }, [])
+  useEffect(() => {
+      //pb.collection("products").getList<Product>().then((res) => setProducts(res.items))
+      pb.collection("category").getList<Category>().then((res) => setCategoryList(res.items))
+      //pb.collection("location").getList<Locations>().then((res) => setLocations(res.items))
+  }, [])
 
   const navigate = useNavigate();
   return (
     <>
       <div className="title">Home</div>
 
-      <div className="flex flex-wrap sm:flex-row sm:gap-2 justify-center">
-        <div className="flex flex-col items-center w-full invisible sm:visible sm:w-[45%] h-72 text-center border border-solid border-[#f8f9fa] shadow-soft-xl rounded-2xl bg-white">
+      <div className="flex sm:gap-2 ">
+        <div className="sm:flex sm:flex-col items-center w-full invisible sm:visible sm:w-[45%] h-72 text-center border border-solid border-[#f8f9fa] shadow-soft-xl rounded-2xl bg-white">
           <p className="pt-2 mb-1 font-semibold">Grafico 1</p>
           <h5 className="font-bold">Soft UI Dashboard</h5>
           <img src={bar} className="w-48" />
-        </div>
+  </div>
         <div className="flex flex-col w-full sm:w-[45%] h-72 text-center border border-solid border-[#f8f9fa] shadow-soft-xl rounded-2xl bg-white">
           <p className="font-semibold">Lista Name</p>
           <table className="table-auto w-full hover mt-10">
@@ -63,24 +63,29 @@ export function Home() {
           
         </div>
       </div>
-      <div className="mt-10 flex justify-center">
-        {true  && (
+      <div className="mt-10 mb-10 flex justify-center">
+        {false  && (
           <button className="btn primary large">crea una nuova lista</button>
         )}
 
-        {false && (
-          <form className="flex flex-col w-[50%] m-auto gap-2">
+        {true && (
+          <form className="flex flex-col w-full sm:w-[50%] m-auto gap-2">
             Name
             <input type="text" name="" />
             Category
-            <input type="text" />
+            <select defaultValue={'DEFAULT'}>
+              <option value="DEFAULT" disabled hidden> -- Please choose an option -- </option>
+              {categoryList && categoryList.map((item) =>{
+                return(<option value={item.id} key={item.id}>{item.name}</option>)
+              })}
+            </select>
             Quantity
             <input type="number" />
             <button className="btn primary"> Add Item</button>
           </form>
         )}
       </div>
-      <HomeList />
+      <HomeList/>
 
       {/*<pre>{JSON.stringify(categoryList,null,2)}</pre>*/}
     </>
