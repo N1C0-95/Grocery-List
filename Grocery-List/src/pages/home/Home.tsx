@@ -4,18 +4,23 @@ import { Category } from "../../models/category";
 import { Product } from "../../models/products";
 import { Locations } from "../../models/location";
 
+
 import bar from "../../assets/bar-graph.png";
 import { HomeList } from "./components/HomeList";
 import { useNavigate } from "react-router-dom";
 import { HomeForm } from "./components/HomeForm";
+import { useGroceryService } from "../../services/grocery";
 export function Home() {
    const [categoryList, setCategoryList] = useState<Category[]>()
+
+   const {actions, state} = useGroceryService();
   // const [products, setProducts] = useState<Product[]>()
   // const [locations, setLocations] = useState<Locations[]>();
   useEffect(() => {
       //pb.collection("products").getList<Product>().then((res) => setProducts(res.items))
       pb.collection("category").getList<Category>().then((res) => setCategoryList(res.items))
       //pb.collection("location").getList<Locations>().then((res) => setLocations(res.items))
+      actions.getGroceries()
   }, [])
 
   const navigate = useNavigate();
