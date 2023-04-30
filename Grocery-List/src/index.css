@@ -33,7 +33,7 @@ input, select{
 */
 .btn{
   @apply px-5 py-2 m-1 font-bold text-center text-sm uppercase transition-all 
-  rounded-lg cursor-pointer 
+  rounded-lg cursor-pointer disabled:opacity-30 
 }
 .btn.primary{
   @apply text-white bg-gradient-to-tl from-purple-500 to-pink-400 

@@ -7,6 +7,7 @@ import { Locations } from "../../models/location";
 import bar from "../../assets/bar-graph.png";
 import { HomeList } from "./components/HomeList";
 import { useNavigate } from "react-router-dom";
+import { HomeForm } from "./components/HomeForm";
 export function Home() {
    const [categoryList, setCategoryList] = useState<Category[]>()
   // const [products, setProducts] = useState<Product[]>()
@@ -67,23 +68,7 @@ export function Home() {
         {false  && (
           <button className="btn primary large">crea una nuova lista</button>
         )}
-
-        {true && (
-          <form className="flex flex-col w-full sm:w-[50%] m-auto gap-2">
-            Name
-            <input type="text" name="" />
-            Category
-            <select defaultValue={'DEFAULT'}>
-              <option value="DEFAULT" disabled hidden> -- Please choose an option -- </option>
-              {categoryList && categoryList.map((item) =>{
-                return(<option value={item.id} key={item.id}>{item.name}</option>)
-              })}
-            </select>
-            Quantity
-            <input type="number" />
-            <button className="btn primary"> Add Item</button>
-          </form>
-        )}
+        {true && <HomeForm categoryList={categoryList!} />}
       </div>
       <HomeList/>
 
