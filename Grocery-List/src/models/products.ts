@@ -4,6 +4,6 @@ export interface Product {
     collectionName: string
     name: string
     quantity: number
-    field: string
+    category: string
   }
   

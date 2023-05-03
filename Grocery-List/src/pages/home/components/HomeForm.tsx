@@ -1,21 +1,26 @@
 import { ChangeEvent, FormEvent, useState } from "react"
 import { Category } from "../../../models/category"
+import {useGroceryService} from "../../../services/grocery/useGroceryService"
+import { Product } from "../../../models/products"
+import { Grocery } from "../../../models/grocery"
 
 interface HomeFormProps {
-    categoryList : Category[]
+    categoryList : Category[],
+    currentGrocery:Partial<Grocery>
 }
-const initialFormState  = {
+const initialFormState : Partial<Product> = {
     name:"",
     category :"",
     quantity:0
 }
 export function HomeForm(props:HomeFormProps){
 
-    const [formData, setFormData] = useState(initialFormState)
+    const [formData, setFormData] = useState<Partial<Product>>(initialFormState)
+    const {actions} = useGroceryService();
 
-    const isNameValid = formData.name.length;
-    const isCategoryValid = formData.category.length;
-    const isQuantityValid = formData.quantity > 0
+    const isNameValid = formData.name?.length;
+    const isCategoryValid = formData.category?.length;
+    const isQuantityValid = formData.quantity
 
     const isValid = isNameValid && isCategoryValid && isQuantityValid
 
@@ -27,7 +32,12 @@ export function HomeForm(props:HomeFormProps){
     
     function savehandler(e:FormEvent<HTMLFormElement>){
         e.preventDefault();
-        console.log(formData)
+        console.log(props.currentGrocery)
+        
+        const products = [...props.currentGrocery.products!, ...[formData]]        
+        const groceryUpdated:Partial<Grocery> = {...props.currentGrocery, products}
+                
+        actions.updateGrocery(groceryUpdated)
     }
 
  

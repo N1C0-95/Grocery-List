@@ -1,12 +1,14 @@
-import { Product } from "../../models/products";
+import { Grocery } from "../../models/grocery";
 
-type ProductGetSuccess = {type:"groceryGetSuccess", payload:Product[]}
-type ProductAddSuccess  = {type:"productAddSuccess", payload:Product}
+type GroceryAddSuccess = {type:"groceryAddSuccess", payload:Grocery}
+type GroceryGetSuccess = {type:"groceryGetSuccess", payload:Grocery}
+type GroceryUpdateSuccess  = {type:"groceryUpdateSuccess", payload:Grocery}
 type Error  = { type: 'error', payload: string };
 type Pending  = { type: 'pending', payload: boolean };
 
 export type GroceryActions =  
-    ProductGetSuccess |
-    ProductAddSuccess |
+    GroceryAddSuccess |
+    GroceryGetSuccess |
+    GroceryUpdateSuccess |
     Error |
     Pending

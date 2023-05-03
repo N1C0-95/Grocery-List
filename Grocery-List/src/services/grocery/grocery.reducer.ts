@@ -1,15 +1,15 @@
-import { Product } from "../../models/products";
+import { Grocery } from "../../models/grocery";
 import { GroceryActions } from "./grocery.actions";
 
 interface GroceryState{
-    products:Product[],
-    error: string,
+    grocery:Grocery | null,
+    error: string | null,
     pending: boolean
 }
 
 export const initialState:GroceryState = {
-    products:[],
-    error:"",
+    grocery:null,
+    error:null,
     pending:false
 }
 
@@ -20,20 +20,27 @@ export function groceryReducer(state:GroceryState, action:GroceryActions){
         case "groceryGetSuccess" :{
             return {
                 ...state, 
-                products:action.payload
+                grocery:action.payload,
+                pending:false,
+                error:null
             }
         }
-        case "productAddSuccess" :{
+        case "groceryAddSuccess":{
             return {
                 ...state, 
-                products:[...state.products, action.payload]
+                grocery:action.payload,
+                pending:false,
+                error:null
             }
         }
+        case "groceryUpdateSuccess":{
+            return state
+        }
         case "error" : {
-            return {...state, error:action.payload }
+            return {...state, pending:false, error:action.payload }
         }
         case "pending" : {
-            return {...state, pending: action.payload}
+            return {...state, pending: action.payload, error:null}
         }
 
         return state

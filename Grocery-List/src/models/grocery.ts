@@ -1,3 +1,5 @@
+import { Product } from "./products"
+
 export interface Grocery {
     id: string
     collectionId: string
@@ -5,7 +7,7 @@ export interface Grocery {
     created: string
     updated: string
     status: string
-    item: string
+    products: Partial<Product>[]
     note: string
   }
   

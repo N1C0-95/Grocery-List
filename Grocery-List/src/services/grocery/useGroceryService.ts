@@ -1,6 +1,10 @@
 import { useReducer } from "react";
 import { groceryReducer, initialState } from "./grocery.reducer";
 import * as GroceryService from "./grocery.api";
+import { Grocery } from "../../models/grocery";
+
+
+
 
 export function useGroceryService(){
     const [state, dispatch] = useReducer(groceryReducer, initialState )
@@ -10,18 +14,17 @@ export function useGroceryService(){
         try{
             const response = await GroceryService.get()
             //check 1 Pending
-            const isPending = response.items.filter(item => item.status === "pending")
+            const pendingList = response.items.filter(item => item.status === "pending")
 
-            if(isPending.length === 1){
-                console.log("dispatch attuale valore")
-            }
-            else if(isPending.length > 1){
-                console.log("dispatch errore")
-            }
-            else{
-                console.log("non fare un cazzo la lista deve rimanere vuota")
-            }
+            if(pendingList.length === 1){  
+
+                dispatch({type:"groceryGetSuccess", payload:pendingList[0]})               
             
+            }
+            else if(pendingList.length > 1){
+                dispatch({type: 'error', payload: "esistono più di una lista in pending" })
+            }
+                 
             
         }
         catch(e){
@@ -29,8 +32,30 @@ export function useGroceryService(){
         }
     }
 
+    async function createGrocery(){
+        try{
+            GroceryService.create({status:"pending"})
+                .then(res =>dispatch({type:"groceryGetSuccess", payload:res})) 
+
+        }
+        catch(e){
+            dispatch({type: 'error', payload: "errore durante la creazione" })
+        }
+    }
+
+    async function updateGrocery(data:Partial<Grocery>){
+            try{
+                GroceryService.update(data)
+            }
+            catch(e){
+                console.log(e)
+                dispatch({type: 'error', payload: "errore durante l'aggiornamento" })
+            }
+       
+        
+    }
     return {
-        actions:{getGroceries},
+        actions:{getGroceries, createGrocery, updateGrocery},
         state
     }
 }

@@ -28,6 +28,8 @@ export function Home() {
     <>
       <div className="title">Home</div>
 
+      {state.error && alert(state.error)}
+
       <div className="flex sm:gap-2 ">
         <div className="sm:flex sm:flex-col items-center w-full invisible sm:visible sm:w-[45%] h-72 text-center border border-solid border-[#f8f9fa] shadow-soft-xl rounded-2xl bg-white">
           <p className="pt-2 mb-1 font-semibold">Grafico 1</p>
@@ -70,14 +72,16 @@ export function Home() {
         </div>
       </div>
       <div className="mt-10 mb-10 flex justify-center">
-        {false  && (
-          <button className="btn primary large">crea una nuova lista</button>
+        {state.grocery === null  && (
+          <button className="btn primary large"
+          onClick={actions.createGrocery}>crea una nuova lista</button>
         )}
-        {true && <HomeForm categoryList={categoryList!} />}
+        {state.grocery != null && <HomeForm categoryList={categoryList!} currentGrocery={state.grocery} />}
       </div>
       <HomeList/>
-
-      {/*<pre>{JSON.stringify(categoryList,null,2)}</pre>*/}
+      
+      
+      {<pre>{JSON.stringify(state.grocery,null,2)}</pre>} 
     </>
   );
 }
