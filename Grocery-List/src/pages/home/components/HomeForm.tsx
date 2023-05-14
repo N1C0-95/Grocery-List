@@ -1,14 +1,15 @@
 import { ChangeEvent, FormEvent, useState } from "react"
 import { Category } from "../../../models/category"
-import {useGroceryService} from "../../../services/grocery/useGroceryService"
 import { Product } from "../../../models/products"
 import { Grocery } from "../../../models/grocery"
 
 interface HomeFormProps {
     categoryList : Category[],
-    currentGrocery:Partial<Grocery>
+    currentGrocery:Partial<Grocery> | null
+    updateGrocery : (data:Partial<Grocery>) => void
 }
 const initialFormState : Partial<Product> = {
+    id:"",
     name:"",
     category :"",
     quantity:0
@@ -16,7 +17,6 @@ const initialFormState : Partial<Product> = {
 export function HomeForm(props:HomeFormProps){
 
     const [formData, setFormData] = useState<Partial<Product>>(initialFormState)
-    const {actions} = useGroceryService();
 
     const isNameValid = formData.name?.length;
     const isCategoryValid = formData.category?.length;
@@ -32,12 +32,25 @@ export function HomeForm(props:HomeFormProps){
     
     function savehandler(e:FormEvent<HTMLFormElement>){
         e.preventDefault();
-        console.log(props.currentGrocery)
-        
-        const products = [...props.currentGrocery.products!, ...[formData]]        
-        const groceryUpdated:Partial<Grocery> = {...props.currentGrocery, products}
-                
-        actions.updateGrocery(groceryUpdated)
+        if(props.currentGrocery){
+            let products : Partial<Product>[] = [];
+            console.log(props.currentGrocery)
+            formData.id= !props.currentGrocery.products ? "0" : props.currentGrocery.products.length.toString()
+            console.log(formData)
+            console.log(props.currentGrocery.products === null)
+            if(props.currentGrocery.products != null){               
+                products =  [...props.currentGrocery.products,formData]
+            }
+            else{
+                products.push(formData)
+            }
+            //products = props.currentGrocery.products ? [...products,formData]]
+            
+            const groceryUpdated:Partial<Grocery> = {...props.currentGrocery, products}
+            
+            props.updateGrocery(groceryUpdated)
+        }
+       
     }
 
  

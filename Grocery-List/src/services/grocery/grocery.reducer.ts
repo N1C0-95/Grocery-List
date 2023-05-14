@@ -34,7 +34,12 @@ export function groceryReducer(state:GroceryState, action:GroceryActions){
             }
         }
         case "groceryUpdateSuccess":{
-            return state
+            return {
+                ...state, 
+                grocery:action.payload,
+                pending:false,
+                error:null
+            }
         }
         case "error" : {
             return {...state, pending:false, error:action.payload }

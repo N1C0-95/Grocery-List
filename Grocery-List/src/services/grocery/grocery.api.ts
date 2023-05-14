@@ -12,5 +12,5 @@ export function create(data:{status:statusValue}){
 }
 
 export function update(data:Partial<Grocery>){
-    return pb.collection('grocery').update(data.id!, data);
+    return pb.collection('grocery').update<Grocery>(data.id!, data);
 }

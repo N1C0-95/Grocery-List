@@ -45,7 +45,8 @@ export function useGroceryService(){
 
     async function updateGrocery(data:Partial<Grocery>){
             try{
-                GroceryService.update(data)
+                GroceryService.update(data).then(res => dispatch({type:"groceryUpdateSuccess", payload:res}) );
+                              
             }
             catch(e){
                 console.log(e)
